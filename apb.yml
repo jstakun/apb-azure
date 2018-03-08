@@ -12,7 +12,7 @@ plans:
     free: True
     metadata:
       displayName: Default
-      cost: 0 EUR
+      cost: $0.00
     parameters:
       - name: azure_region
         required: true
@@ -61,7 +61,7 @@ plans:
     free: false
     metadata:
       displayName: Premium
-      cost: 10 EUR
+      cost: $10.00
     parameters:
       - name: azure_region
         required: true
