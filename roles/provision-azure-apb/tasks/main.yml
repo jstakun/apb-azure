@@ -1,0 +1,102 @@
+##############################################################################
+## Provision azure
+## This role executes much of the needed functionality to provision an
+## application using an Ansible Playbook Bundle.  Included in the comments
+## below are some sample resources for getting started deploying an application
+## to OpenShift.
+##############################################################################
+
+      - name: Load Azure connection secret
+        include_vars:
+          file: '/etc/apb-secrets/apb-azure-auth'
+        ignore_errors: yes
+
+      - name: Create a resource group if doesn't exists
+        azure_rm_resourcegroup:
+          name: '{{ azure_resource_group }}'
+          location: '{{ azure_region }}' 
+          client_id: '{{ client_id }}'
+          secret: '{{ secret }}'
+          subscription_id: '{{ subscription_id }}'
+          tenant: '{{ tenant }}'
+          state: present
+
+      - name: Create a virtual network if doesn't exists
+        azure_rm_virtualnetwork:
+          name: '{{ azure_virtual_network }}'
+          resource_group: '{{ azure_resource_group }}'
+          address_prefixes_cidr:
+          - "10.0.0.0/24"
+          client_id: '{{ client_id }}'
+          secret: '{{ secret }}'
+          subscription_id: '{{ subscription_id }}'
+          tenant: '{{ tenant }}'
+          state: present  
+
+      - name: Create a default subnet if doesn't exisits
+        azure_rm_subnet:
+          name: default
+          virtual_network_name: '{{ azure_virtual_network }}'
+          resource_group: '{{ azure_resource_group }}'
+          address_prefix_cidr: "10.0.0.0/24" 
+          client_id: '{{ client_id }}'
+          secret: '{{ secret }}'
+          subscription_id: '{{ subscription_id }}'
+          tenant: '{{ tenant }}' 
+          state: present
+
+      - name: Create NIC if doesn't exists
+        azure_rm_networkinterface:
+          resource_group: '{{ azure_resource_group }}'
+          name: '{{ azure_nic_name }}'
+          virtual_network: '{{ azure_virtual_network }}'
+          subnet: '{{ azure_subnet }}'
+          security_group: '{{ azure_security_group }}' 
+          public_ip_allocation_method: '{{ azure_ip_allocation_method }}'
+          client_id: '{{ client_id }}'
+          secret: '{{ secret }}'
+          subscription_id: '{{ subscription_id }}'
+          tenant: '{{ tenant }}'
+          state: present
+
+
+      - name: Create storage account if doesn't exists
+        azure_rm_storageaccount:
+          resource_group: '{{ azure_resource_group }}'
+          name: '{{ azure_storage_account }}'
+          type: Premium_LRS
+          client_id: '{{ client_id }}'
+          secret: '{{ secret }}'
+          subscription_id: '{{ subscription_id }}'
+          tenant: '{{ tenant }}'
+          state: present
+
+      - name: Create virtual machine
+        azure_rm_virtualmachine:
+          resource_group: '{{ azure_resource_group }}'
+          name: '{{ azure_vm_name }}'
+          vm_size: '{{ azure_vm_size }}'
+          storage_account: '{{ azure_resource_group }}disks'
+          storage_container: '{{ azure_storage_container }}'
+          storage_blob: '{{ azure_vm_name }}-os.vhd'
+          admin_username: '{{ azure_vm_username }}'
+          admin_password: '{{ azure_vm_password }}'
+          #ssh_public_keys:
+          #   - path: '/home/{{ azure_vm_username }}/.ssh/authorized_keys'
+          #     key_data: '{{ azure_vm_ssh_public_key }}'
+          network_interfaces: '{{ azure_nic_name }}'
+          #image:
+          #  offer: rhel-byol
+          #  publisher: RedHat
+          #  sku: 'rhel74'
+          #  version: '7.4.0'
+          image:
+             offer: CentOS
+             publisher: OpenLogic
+             sku: '7.4'
+             version: latest
+          client_id: '{{ client_id }}'
+          secret: '{{ secret }}'
+          subscription_id: '{{ subscription_id }}'
+          tenant: '{{ tenant }}'
+          

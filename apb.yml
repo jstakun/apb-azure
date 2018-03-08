@@ -1,0 +1,108 @@
+version: 1.0
+name: azure-apb
+description: VM provisioned in Azure public cloud 
+bindable: False
+async: optional
+metadata:
+  displayName: Azure VM
+  imageUrl: https://azuremarketplace.microsoft.com/images/VirtualMachine.svg 
+plans:
+  - name: default
+    description: This default plan deploys Azure VM
+    free: True
+    metadata:
+      displayName: Default
+      cost: 0 EUR
+    parameters:
+      - name: azure_region
+        required: true
+        default: westus
+        title: Name
+        type: enum
+        enum: ['westus']
+        display_group: Azure Region
+      - name: azure_vm_image
+        required: true
+        default: CentOS_7.4
+        type: enum
+        enum: ['CentOS_7.4']
+        display_type: select
+        title: Image
+        display_group: VM Settings
+      - name: azure_vm_name
+        required: true
+        default: testvm001
+        type: string
+        title: VM name
+        display_group: VM Settings
+      - name: azure_vm_size
+        default: Standard_DS1_v2
+        required: true
+        type: enum
+        enum: ['Standard_DS1_v2']
+        display_type: select
+        title: Size
+        display_group: VM Settings 
+      - name: azure_vm_username
+        default: azure-user
+        required: true
+        type: string
+        title: VM Username
+        display_group: VM Settings
+      - name: azure_vm_password
+        default: changeme1!
+        required: true
+        type: string
+        title: VM Password
+        display_type: password 
+        display_group: VM Settings
+  - name: premium
+    description: This premium plan deploys different type and size Azure VM in different Azure regions 
+    free: false
+    metadata:
+      displayName: Premium
+      cost: 10 EUR
+    parameters:
+      - name: azure_region
+        required: true
+        default: westus
+        title: Name
+        type: enum
+        enum: ['westus', 'eastus']
+        display_group: Azure Region
+      - name: azure_vm_image
+        required: true
+        default: CentOS_7.4
+        type: enum
+        enum: ['CentOS_7.4', 'RHEL_7.4']
+        display_type: select
+        title: Image
+        display_group: VM Settings
+      - name: azure_vm_name
+        required: true
+        default: testvm001
+        type: string
+        title: VM name
+        display_group: VM Settings
+      - name: azure_vm_size
+        default: Standard_DS1_v2
+        required: true
+        type: enum
+        enum: ['Standard_DS1_v2', 'Standard_DS2_v2', 'Standard_DS3_v2', 'Standard_DS4_v2', 'Standard_DS5_v2']
+        display_type: select
+        title: Size
+        display_group: VM Settings
+      - name: azure_vm_username
+        default: azure-user
+        required: true
+        type: string
+        title: VM Username
+        display_group: VM Settings
+      - name: azure_vm_password
+        default: changeme1!
+        required: true
+        type: string
+        title: VM Password
+        display_type: password
+        display_group: VM Settings
+

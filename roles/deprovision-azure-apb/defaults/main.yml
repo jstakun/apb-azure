@@ -1,0 +1,9 @@
+---
+playbook_debug: yes
+azure_resource_group: "{{ lookup('env','AZURE_RESOURCE_GROUP') | default('ocp', true) }}"
+azure_nic_name: "{{ lookup('env','AZURE_NIC_NAME') | default('testnic001', true) }}"
+azure_vm_name: "{{ lookup('env','AZURE_VM_NAME') | default('testvm001', true) }}"
+client_id: "{{ lookup('env','AZURE_CLIENT_ID') | default('', true) }}"
+secret: "{{ lookup('env', 'AZURE_SECRET') | default('', true) }}"
+subscription_id: "{{ lookup('env','AZURE_SUBSCRIPTION_ID') | default('', true) }}"
+tenant: "{{ lookup('env','AZURE_TENANT') | default('', true) }}"
