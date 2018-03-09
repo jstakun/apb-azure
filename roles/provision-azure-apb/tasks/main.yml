@@ -73,14 +73,17 @@
 
       - name: 'set CentOS 7.4 image'
         set_fact:
-           image: "{{ image_CentOS_74 }}"
-           when: azure_vm_image == 'CentOS_7.4'
+          image: "{{ image_CentOS_74 }}"
+          when: azure_vm_image == 'CentOS_7.4'
 
       
       - name: 'set RHEL 7.4 image'
         set_fact:
-           image: "{{ image_RHEL_74 }}"
-           when: azure_vm_image == 'RHEL_7.4'
+          image: "{{ image_RHEL_74 }}"
+          when: azure_vm_image == 'RHEL_7.4'
+
+      - debug:
+          var: image 
 
       - name: Create virtual machine
         azure_rm_virtualmachine:

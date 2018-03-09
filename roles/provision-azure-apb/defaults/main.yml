@@ -23,5 +23,5 @@ subscription_id: "{{ lookup('env','AZURE_SUBSCRIPTION_ID') | default('', true) }
 tenant: "{{ lookup('env','AZURE_TENANT') | default('', true) }}"
 # image
 azure_vm_image: "{{ lookup('env','AZURE_VM_IMAGE') | default('CentOS_7.4', true) }}"
-image_CentOS_74: {offer: 'rhel-byol', publisher: 'RedHat', sku: 'rhel74', version: '7.4.0'}
-image_RHEL_74: {offer: 'CentOS', publisher: 'OpenLogic', sku: '7.4', version: 'latest'}
+image_RHEL_74: {offer: 'rhel-byol', publisher: 'RedHat', sku: 'rhel74', version: '7.4.0'}
+image_CentOS_74: {offer: 'CentOS', publisher: 'OpenLogic', sku: '7.4', version: 'latest'}
