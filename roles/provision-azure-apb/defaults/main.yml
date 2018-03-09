@@ -1,7 +1,9 @@
 ---
 playbook_debug: yes
+# region
 azure_resource_group: "{{ lookup('env','AZURE_RESOURCE_GROUP') | default('ocp', true) }}"
 azure_region: "{{ lookup('env','AZURE_REGION') | default('westus', true) }}"
+# vm
 azure_nic_name: "{{ lookup('env','AZURE_NIC_NAME') | default('testnic001', true) }}"
 azure_virtual_network: "{{ lookup('env','AZURE_VIRTUAL_NETWORK') | default('ocp-vpc', true) }}"
 azure_subnet: "{{ lookup('env','AZURE_SUBNET') | default('default', true) }}"
@@ -14,7 +16,12 @@ azure_storage_container: "{{ lookup('env','AZURE_STORAGE_CONTAINER') | default('
 azure_vm_username: "{{ lookup('env','AZURE_VM_USERNAME') | default('azure-user', true) }}"
 azure_vm_password: "{{ lookup('env','AZURE_VM_PASSWORD') | default('changeme1!', true) }}"
 azure_vm_ssh_public_key: "{{ lookup('env','AZURE_VM_SSH_PUBLIC_KEY') | default('', true) }}"
+# auth
 client_id: "{{ lookup('env','AZURE_CLIENT_ID') | default('', true) }}"
 secret: "{{ lookup('env', 'AZURE_SECRET') | default('', true) }}"
 subscription_id: "{{ lookup('env','AZURE_SUBSCRIPTION_ID') | default('', true) }}"
 tenant: "{{ lookup('env','AZURE_TENANT') | default('', true) }}"
+# image
+azure_vm_image: "{{ lookup('env','AZURE_VM_IMAGE') | default('CentOS_7.4', true) }}"
+image_CentOS_74: {offer: 'rhel-byol', publisher: 'RedHat', sku: 'rhel74', version: '7.4.0'}
+image_RHEL_74: {offer: 'CentOS', publisher: 'OpenLogic', sku: '7.4', version: 'latest'}
