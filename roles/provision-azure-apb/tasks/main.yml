@@ -70,20 +70,19 @@
           subscription_id: '{{ subscription_id }}'
           tenant: '{{ tenant }}'
           state: present
+       
+      - debug:
+          msg: 'Selected image {{ azure_vm_image }}'
 
-      - name: 'set CentOS 7.4 image'
+      - name: 'set Azure VM image'
         set_fact:
-          image: "{{ image_CentOS_74 }}"
-          when: azure_vm_image == 'CentOS_7.4'
-
-      
-      - name: 'set RHEL 7.4 image'
-        set_fact:
-          image: "{{ image_RHEL_74 }}"
-          when: azure_vm_image == 'RHEL_7.4'
+          image: '{{ item }}'
+        when: item.name == azure_vm_image
+        with_items:  
+          '{{ azure_vm_images }}'
 
       - debug:
-          var: image 
+          msg: 'Provisioning image {{ image.name }}...' 
 
       - name: Create virtual machine
         azure_rm_virtualmachine:
