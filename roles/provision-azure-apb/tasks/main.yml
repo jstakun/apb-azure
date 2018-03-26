@@ -82,7 +82,7 @@
           '{{ azure_vm_images }}'
 
       - debug:
-          msg: 'Provisioning image {{ image.name }}...' 
+          msg: 'Provisioning image {{ image.name }} {{ image.offer }} {{ image.publisher }} {{ image.sku }} {{ image.version }}' 
 
       - name: Create virtual machine
         azure_rm_virtualmachine:
