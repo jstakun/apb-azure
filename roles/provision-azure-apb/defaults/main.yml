@@ -24,5 +24,5 @@ tenant: "{{ lookup('env','AZURE_TENANT') | default('', true) }}"
 # images
 azure_vm_image: "{{ lookup('env','AZURE_VM_IMAGE') | default('CentOS_7.4', true) }}"
 azure_vm_images: 
-  - {name: 'CentOS_7.4', offer: 'rhel-byol', publisher: 'RedHat', sku: 'rhel74', version: '7.4.0'}
-  - {name: 'RHEL_7.4', offer: 'CentOS', publisher: 'OpenLogic', sku: '7.4', version: 'latest'}
+  - {name: 'RHEL_7.4', offer: 'rhel-byol', publisher: 'RedHat', sku: 'rhel74', version: '7.4.0'}
+  - {name: 'CentOS_7.4', offer: 'CentOS', publisher: 'OpenLogic', sku: '7.4', version: 'latest'}

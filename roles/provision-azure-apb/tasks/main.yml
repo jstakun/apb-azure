@@ -76,13 +76,16 @@
 
       - name: 'set Azure VM image'
         set_fact:
-          image: '{{ item }}'
+          offer: '{{item.offer}}'
+          publisher: '{{item.publisher}}'
+          sku: '{{item.sku}}'
+          version: '{{item.version}}'
         when: item.name == azure_vm_image
         with_items:  
           '{{ azure_vm_images }}'
 
       - debug:
-          msg: 'Provisioning image {{ image.name }} {{ image.offer }} {{ image.publisher }} {{ image.sku }} {{ image.version }}' 
+          msg: 'Provisioning image {{ offer }} {{ sku }} {{ version }} by {{ publisher }}' 
 
       - name: Create virtual machine
         azure_rm_virtualmachine:
@@ -99,10 +102,10 @@
           #     key_data: '{{ azure_vm_ssh_public_key }}'
           network_interfaces: '{{ azure_nic_name }}'
           image:
-             offer: '{{ image.offer }}'
-             publisher: '{{ image.publisher }}'
-             sku: '{{ image.sku }}'
-             version: '{{ image.version }}'
+             offer: '{{ offer }}'
+             publisher: '{{ publisher }}'
+             sku: '{{ sku }}'
+             version: '{{ version }}'
           client_id: '{{ client_id }}'
           secret: '{{ secret }}'
           subscription_id: '{{ subscription_id }}'
